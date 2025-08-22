@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Buzo Oversize",
+    "price": 45000,
+    "stock": 7
+  },
+  {
+    "id": 2,
+    "title": "Jean Oversize",
+    "price": 32000,
+    "stock": 12
+  }
+]
