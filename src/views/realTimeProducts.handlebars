@@ -1,0 +1,33 @@
+{{! Lista en tiemppo real con Socket.IO }}
+<h2>Realtime Products (WebSocket)</h2>
+<p class="muted">Al crear o eliminar por esta vista, la lista se actualiza automáticamente en todos los clientes conectados.</p>
+
+<section>
+  <h3>Crear producto</h3>
+  <form id="createForm">
+    <input name="title" placeholder="Título" required />
+    <input name="price" placeholder="Precio (número)" type="number" step="0.01" required />
+    <input name="stock" placeholder="Stock (entero)" type="number" required />
+    <button type="submit">Crear</button>
+    <div id="createMsg" class="muted"></div>
+  </form>
+</section>
+
+<section>
+  <h3>Lista en tiempo real</h3>
+  <ul id="productList" class="list">
+    {{#if products.length}}
+      {{#each products}}
+        <li class="item" data-id="{{id}}">
+          <span><strong>#{{id}}</strong> — {{title}} — ${{price}} — stock: {{stock}}</span>
+          <button class="delBtn danger" data-id="{{id}}">Eliminar</button>
+        </li>
+      {{/each}}
+    {{else}}
+      <li>No hay productos aun</li>
+    {{/if}}
+  </ul>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>

@@ -10,5 +10,11 @@
     "title": "Jean Oversize",
     "price": 32000,
     "stock": 12
+  },
+  {
+    "id": 3,
+    "title": "Remera",
+    "price": 25000,
+    "stock": 15
   }
 ]

@@ -28,23 +28,15 @@ export const addToCart = async (req, res, next) => {
   try {
     const cid = Number(req.params.cid);
     const pid = Number(req.params.pid);
-    let qty = Number(req.body?.quantity ?? 1);
-    if (!Number.isInteger(qty) || qty <= 0) qty = 1;
+    const qty = Number(req.body?.quantity ?? 1);
 
-    const prod = await products.getById(pid);
-    if (!prod) return res.status(404).json({ status: "error", error: "Producto inexistente" });
+    const exists = await products.getById(pid);
+    if (!exists) return res.status(404).json({ status: "error", error: "Producto inexistente" });
 
-    if (prod.stock < qty) {
-      return res.status(400).json({ status: "error", error: `Stock insuficiente (disponible: ${prod.stock})` });
-    }
+    const updated = await carts.addProduct(cid, pid, qty);
+    if (!updated) return res.status(404).json({ status: "error", error: "Carrito no encontrado" });
 
-    const updatedCart = await carts.addProduct(cid, pid, qty);
-    if (!updatedCart) return res.status(404).json({ status: "error", error: "Carrito no encontrado" });
-
-    // Descontar stock del producto
-    await products.update(pid, { stock: prod.stock - qty });
-
-    res.json({ status: "success", payload: updatedCart });
+    res.json({ status: "success", payload: updated });
   } catch (e) { next(e); }
 };
 

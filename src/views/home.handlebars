@@ -1,0 +1,16 @@
+{{! Lista por HTTP }}
+<h2>Home (HTTP)</h2>
+<p class="muted">Esta vista renderiza la lista de productos usando una consulta HTTP.</p>
+
+<ul class="list">
+  {{#if products.length}}
+    {{#each products}}
+      <li class="item">
+        <span><strong>#{{id}}</strong> — {{title}} — ${{price}} — stock: {{stock}}</span>
+        <span class="pill">HTTP</span>
+      </li>
+    {{/each}}
+  {{else}}
+    <li>No hay productos aún.</li>
+  {{/if}}
+</ul>
