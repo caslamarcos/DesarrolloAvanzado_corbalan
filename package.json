@@ -1,18 +1,14 @@
 {
-  "name": "desarrollo_backend",
-  "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "node src/server.js",
-    "start": "node src/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^5.1.0",
-    "express-handlebars": "^8.0.2",
-    "socket.io": "^4.8.1"
+    "express": "^4.19.2",
+    "mongoose": "^8.6.0",
+    "mongoose-paginate-v2": "^1.9.0",
+    "express-handlebars": "^7.1.2",
+    "dotenv": "^16.4.5"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
   }
 }

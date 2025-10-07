@@ -1,0 +1,40 @@
+<h2>Carrito {{cartId}}</h2>
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acciones</th></tr>
+  </thead>
+  <tbody>
+    {{#each items}}
+      <tr>
+        <td>{{this.title}}</td>
+        <td>${{this.price}}</td>
+        <td>
+          <input type="number" min="1" value="{{this.quantity}}" onchange="updateQty('{{../cartId}}','{{this._id}}', this.value)" />
+        </td>
+        <td>${{this.subtotal}}</td>
+        <td><button onclick="removeItem('{{../cartId}}','{{this._id}}')">Eliminar</button></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<p><strong>Total: ${{total}}</strong></p>
+<button onclick="emptyCart('{{cartId}}')">Vaciar carrito</button>
+
+<script>
+  async function updateQty(cid, pid, quantity) {
+    const res = await fetch(`/api/carts/${cid}/products/${pid}`, {
+      method:'PUT',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ quantity: Number(quantity) })
+    });
+    if (res.ok) location.reload();
+  }
+  async function removeItem(cid, pid) {
+    const res = await fetch(`/api/carts/${cid}/products/${pid}`, { method:'DELETE' });
+    if (res.ok) location.reload();
+  }
+  async function emptyCart(cid) {
+    const res = await fetch(`/api/carts/${cid}`, { method:'DELETE' });
+    if (res.ok) location.reload();
+  }
+</script>

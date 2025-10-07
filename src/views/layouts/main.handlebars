@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
   <title>{{title}}</title>
-  <style>
-    body { font-family: system-ui, Arial, sans-serif; max-width: 900px; margin: 24px auto; padding: 0 16px; }
-    header { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
-    a { text-decoration: none; }
-    nav a { margin-right: 12px; }
-    ul { padding-left: 20px; }
-    form { margin: 12px 0; display: grid; gap: 8px; max-width: 420px; }
-    input, button { padding: 8px 10px; font-size: 14px; }
-    .row { display: flex; gap: 8px; align-items: center; }
-    .danger { color: #b20000; }
-    .muted { color: #666; }
-    .pill { font-size: 12px; border: 1px solid #ddd; padding: 2px 8px; border-radius: 999px; }
-    .list { margin-top: 12px; }
-    .item { display:flex; justify-content:space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid #eee; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
   <header>
-    <h1>Desarrollo Backend – Entrega 2</h1>
+    <h1 style="margin:8px 0;">Coder E-commerce</h1>
     <nav>
-      <a href="/">Home</a>
-      <a href="/realtimeproducts">Realtime</a>
+      <a href="/products">Productos</a>
     </nav>
+    <hr/>
   </header>
   {{{body}}}
 </body>

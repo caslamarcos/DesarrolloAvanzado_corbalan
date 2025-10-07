@@ -1,15 +1,35 @@
-import app from "./app.js";
-import { createServer } from "http";
-import { Server as SocketIOServer } from "socket.io";
-import { registerSocketHandlers } from "./sockets.js";
+import express from 'express';
+import { connectDB } from './db.js';
+import productsRouter from './routes/products.router.js';
+import cartsRouter from './routes/carts.router.js';
+import viewsRouter from './routes/views.router.js';
+import { engine } from 'express-handlebars';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { hbsHelpers } from './views/helpers.js'; // 👈 Importamos los helpers
 
-const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const httpServer = createServer(app);
-const io = new SocketIOServer(httpServer); // CORS por defecto ok en local
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
-registerSocketHandlers(io);
+// 🧩 Handlebars con helpers personalizados
+app.engine('handlebars', engine({ helpers: hbsHelpers }));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
-httpServer.listen(PORT, () => {
-  console.log(`✅ desarrollo_backend + websockets en http://localhost:${PORT}`);
-});
+// 🚀 Rutas API
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
+
+// 🌐 Rutas de vistas
+app.use('/', viewsRouter);
+
+const PORT = process.env.PORT || 8080;
+
+connectDB()
+  .then(() => app.listen(PORT, () => console.log(`🚀 Server on http://localhost:${PORT}`)))
+  .catch(err => console.error('❌ DB error', err));
